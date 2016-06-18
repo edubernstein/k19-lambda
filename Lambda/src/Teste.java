@@ -41,6 +41,16 @@ public class Teste {
 		
 		Consumer<Conta> consumer = c -> System.out.println("Número: " + c.getNumero() + " - Saldo: " + c.getSaldo());
 		imprimeContas(contas, c -> c.getSaldo() > 0, consumer);
+		imprimeGenerico(contas, c -> c.getSaldo() > 0, consumer);
+	}
+	
+	public static<X> void imprimeGenerico(List<X> lista, Predicate<X> condicao, Consumer<X> acao) {
+		System.out.println("### Genérico ###");
+		for (X t : lista) {
+			if (condicao.test(t)) {
+				acao.accept(t);
+			}
+		}
 	}
 	
 	public static void imprimeContas(List<Conta> contas, Predicate<Conta> condicao, Consumer<Conta> acao) {
