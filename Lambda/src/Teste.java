@@ -31,8 +31,12 @@ public class Teste {
 		Predicate<Conta> p = Teste::contaComSaldoNegativo;
 		Function<Conta, Boolean> f = Teste::contaComSaldoPositivo;
 		imprimeContas(contas, p);
-		imprimeContas(contas, f);
-		
+		imprimeContasF(contas, f);
+		Predicate<Conta> saldoNegativo = (Conta c) -> { return c.getSaldo() < 0; };
+		Predicate<Conta> saldoPositivo = c -> c.getSaldo() > 0;
+		imprimeContas(contas, saldoNegativo);
+		imprimeContas(contas, saldoPositivo);
+		imprimeContas(contas, c -> c.getSaldo() > 0);
 	}
 	
 	public static void imprimeContas(List<Conta> contas, Predicate<Conta> condicao) {
@@ -44,7 +48,7 @@ public class Teste {
 		}
 	}
 	
-	public static void imprimeContas(List<Conta> contas, Function<Conta, Boolean> condicao) {
+	public static void imprimeContasF(List<Conta> contas, Function<Conta, Boolean> condicao) {
 		System.out.println("### CONTAS ###");
 		for (Conta c : contas) {
 			if (condicao.apply(c)) {
