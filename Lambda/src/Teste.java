@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -37,6 +38,18 @@ public class Teste {
 		imprimeContas(contas, saldoNegativo);
 		imprimeContas(contas, saldoPositivo);
 		imprimeContas(contas, c -> c.getSaldo() > 0);
+		
+		Consumer<Conta> consumer = c -> System.out.println("Número: " + c.getNumero() + " - Saldo: " + c.getSaldo());
+		imprimeContas(contas, c -> c.getSaldo() > 0, consumer);
+	}
+	
+	public static void imprimeContas(List<Conta> contas, Predicate<Conta> condicao, Consumer<Conta> acao) {
+		System.out.println("### CONTAS ###");
+		for (Conta c : contas) {
+			if (condicao.test(c)) {
+				acao.accept(c);
+			}
+		}
 	}
 	
 	public static void imprimeContas(List<Conta> contas, Predicate<Conta> condicao) {
